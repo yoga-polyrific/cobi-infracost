@@ -4,13 +4,6 @@ terraform {
             source = "hashicorp/azurerm"
         }
     }
-    # backend "azurerm" {
-    #   resource_group_name = "networkeco-poc"
-    #   storage_account_name = "cobiterra"
-    #   container_name = "network"
-    #   key = "terraform.tfstate"
-    #   features{}
-    # }
 }
 
 
