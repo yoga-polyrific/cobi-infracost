@@ -12,7 +12,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: 'infra-eco'
-    Contents: '*'
+    Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
