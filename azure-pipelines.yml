@@ -11,7 +11,8 @@ pool:
 steps:
 - task: CopyFiles@2
   inputs:
-    Contents: 'infra-eco'
+    SourceFolder: 'infra-eco'
+    Contents: '*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
