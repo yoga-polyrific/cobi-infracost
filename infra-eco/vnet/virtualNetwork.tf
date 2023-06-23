@@ -56,7 +56,21 @@ resource "azurerm_subnet" "subnetDefault" {
   resource_group_name  = data.azurerm_resource_group.resource_group.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.3.0/24"]
-  service_endpoints = [ "Microsoft.Storage", "Microsoft.Sql" ]
+  service_endpoints = [ "Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web" ]
+}
+
+resource "azurerm_subnet" "subnetWeb" {
+  name                 = "FunctionSubnet"
+  resource_group_name  = data.azurerm_resource_group.resource_group.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.4.0/24"]
+  service_endpoints = [ "Microsoft.Web" ]
+  delegation {
+    name = "functiondelegation"
+    service_delegation {
+      name = "Microsoft.Web/serverFarms"
+    }
+  }
 }
 
 resource "azurerm_public_ip" "ip-public" {
