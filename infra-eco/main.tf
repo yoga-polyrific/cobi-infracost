@@ -50,3 +50,16 @@ module "datafactory" {
   dbUser = module.databases.dbUser
   dbPass = module.databases.dbPass
 }
+
+module "insight" {
+  source = "./insight"
+}
+
+module "function" {
+  source = "./function"
+  functionSubnetId = module.network.functionSubnetId
+  insightKey = module.insight.insightKey
+  insightConnString = module.insight.insightConnString
+  functionStorageName = module.storage.functionStorageName
+  functionStorageKey = module.storage.functionStorageKey
+}
