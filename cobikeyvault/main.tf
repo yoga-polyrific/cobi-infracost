@@ -25,6 +25,11 @@ variable "product-name" {
   default = "cobi"
 }
 
+variable "secretValue1" {
+  type = string
+  default = "secret1"
+}
+
 data "azurerm_resource_group" "resource_group" {
   name = "ssos-securenetpoc"
 }
@@ -45,4 +50,10 @@ resource "azurerm_key_vault_access_policy" "kvAccessPolicyYoga" {
   tenant_id = data.azuread_client_config.clientYoga.id
   object_id = data.azuread_client_config.clientYoga.object_id
   secret_permissions = [ "Get", "Set", "Delete" ]
+}
+
+resource "azurerm_key_vault_secret" "kvsecret" {
+  name = "cobisecret"
+  value = "${var.secretValue}"
+  key_vault_id = azurerm_key_vault.keyVaultEco.id
 }
