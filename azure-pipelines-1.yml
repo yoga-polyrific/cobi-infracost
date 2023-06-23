@@ -16,6 +16,8 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - script: sed -i "s|default = \"secret1\"|default = \"$(SECRET1)\"|" $(Build.ArtifactStagingDirectory)/main.tf
   displayName: 'change secret1'
+- script: cat $(Build.ArtifactStagingDirectory)/main.tf
+  displayName: 'show main'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
