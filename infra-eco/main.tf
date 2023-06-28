@@ -71,9 +71,6 @@ module "synapse" {
   defaultSubnetId = module.network.defaultSubnetId
 }
 
-module "keyvault" {
-  source = "./keyvault"
-}
 
 # module "endpoints" {
 #   source = "./privateEndpoints"
