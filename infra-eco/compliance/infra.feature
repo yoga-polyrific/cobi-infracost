@@ -5,7 +5,7 @@ Feature: Azure Resource Creation
     Then the Azure Data Factory should exist
 
   Scenario: Verify the creation of Azure SQL Database and Server
-    Given I have an Azure SQL Database named "ecopetrol-db-terra" and an Azure SQL Server named "my-sql-server" in the resource group "networkeco-poc"
+    Given I have an Azure SQL Database named "ecopetrol-db-terra" and an Azure SQL Server named "ecopetrol-server" in the resource group "networkeco-poc"
     Then the Azure SQL Database and Server should exist
 
   Scenario: Verify the creation of Azure Function App
