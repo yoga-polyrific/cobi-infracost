@@ -86,8 +86,3 @@ module "nsg" {
   source = "./NSG"
   defaultSubnetId = module.network.defaultSubnetId
 }
-
-module "netwatch" {
-  source = "./network-watcher"
-  nsgId = module.nsg.nsgId
-}
