@@ -4,12 +4,12 @@ terraform {
             source = "hashicorp/azurerm"
         }
     }
-     backend "azurerm" {
-       resource_group_name = "networkeco-poc"
-       storage_account_name = "cobiterra"
-       container_name = "network"
-       key = "terraform.tfstate"
-     }
+    # backend "azurerm" {
+    #   resource_group_name = "networkeco-poc"
+    #   storage_account_name = "cobiterra"
+    #   container_name = "network"
+    #   key = "terraform.tfstate"
+    # }
 }
 
 
@@ -62,4 +62,35 @@ module "function" {
   insightConnString = module.insight.insightConnString
   functionStorageName = module.storage.functionStorageName
   functionStorageKey = module.storage.functionStorageKey
+}
+
+module "synapse" {
+  source = "./synapse"
+  adlContainerId = module.storage.adlContainerId
+  adlStorageId = module.storage.adlStorageId
+  defaultSubnetId = module.network.defaultSubnetId
+}
+
+module "keyvault" {
+  source = "./keyvault"
+}
+
+# module "endpoints" {
+#   source = "./privateEndpoints"
+#   defaultSubnetId = module.network.defaultSubnetId
+#   dbId = module.databases.dbId
+#   adfId = module.datafactory.adfId
+#   funcId = module.function.funcId
+#   vaultId = module.keyvault.vaultId
+#   synId = module.synapse.synId
+# }
+
+module "nsg" {
+  source = "./NSG"
+  defaultSubnetId = module.network.defaultSubnetId
+}
+
+module "netwatch" {
+  source = "./network-watcher"
+  nsgId = module.nsg.nsgId
 }
