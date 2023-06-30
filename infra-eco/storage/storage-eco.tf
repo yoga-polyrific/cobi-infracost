@@ -68,7 +68,7 @@ resource "azurerm_storage_account" "functionStorage" {
 }
 
 resource "azurerm_storage_account_network_rules" "functionNet" {
-  storage_account_id = azurerm_storage_account.storageAccont.id
+  storage_account_id = azurerm_storage_account.functionStorage.id
   default_action = "Allow"
   ip_rules = [ "110.139.62.19" ]
   virtual_network_subnet_ids = ["${var.defaultSubnetId}"]
