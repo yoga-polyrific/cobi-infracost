@@ -35,6 +35,7 @@ resource "azurerm_mssql_server" "sqlServer" {
   administrator_login_password = "A#0W4Bb0MWl1cC9L"
   version = "12.0"
   public_network_access_enabled = false
+  minimum_tls_version = "1.2
 }
 
 resource "azurerm_mssql_virtual_network_rule" "dbNet" {
