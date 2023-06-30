@@ -45,6 +45,7 @@ resource "azurerm_storage_account_network_rules" "adlNet" {
   default_action = "Deny"
   ip_rules = [ "110.139.62.19" ]
   virtual_network_subnet_ids = ["${var.defaultSubnetId}"]
+  bypass                     = ["Metrics", "AzureServices"]
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "ADLv2" {
@@ -67,4 +68,5 @@ resource "azurerm_storage_account_network_rules" "functionNet" {
   default_action = "Deny"
   ip_rules = [ "110.139.62.19" ]
   virtual_network_subnet_ids = ["${var.defaultSubnetId}"]
+  bypass                     = ["Metrics", "AzureServices"]
 }
