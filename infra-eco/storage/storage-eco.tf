@@ -42,7 +42,7 @@ resource "azurerm_storage_account" "storageAccont" {
 
 resource "azurerm_storage_account_network_rules" "adlNet" {
   storage_account_id = azurerm_storage_account.storageAccont.id
-  default_action = "Allow"
+  default_action = "Deny"
   ip_rules = [ "110.139.62.19" ]
   virtual_network_subnet_ids = ["${var.defaultSubnetId}"]
 }
@@ -64,7 +64,7 @@ resource "azurerm_storage_account" "functionStorage" {
 
 resource "azurerm_storage_account_network_rules" "functionNet" {
   storage_account_id = azurerm_storage_account.functionStorage.id
-  default_action = "Allow"
+  default_action = "Deny"
   ip_rules = [ "110.139.62.19" ]
   virtual_network_subnet_ids = ["${var.defaultSubnetId}"]
 }
