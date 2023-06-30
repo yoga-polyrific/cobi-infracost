@@ -37,7 +37,7 @@ data "azurerm_resource_group" "resource_group" {
 
 
 resource "azurerm_storage_account" "storageAccont" {
-  name = "${var.product-name}datalake2"
+  name = "${var.product-name}datalake2terra"
   resource_group_name = data.azurerm_resource_group.resource_group.name
   location = data.azurerm_resource_group.resource_group.location
   account_tier = "Standard"
