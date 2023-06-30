@@ -38,6 +38,14 @@ resource "azurerm_mssql_server" "sqlServer" {
   minimum_tls_version = "1.2"
 }
 
+resource "azurerm_mssql_server_extended_auditing_policy" "serverAuditPolicy" {
+  server_id = azurerm_mssql_server.sqlServer.id
+  storage_endpoint = data.azurerm_storage_account.storageExist.primary_blob_endpoint
+  storage_account_access_key = data.azurerm_storage_account.storageExist.primary_access_key
+  storage_account_access_key_is_secondary = true
+  retention_in_days = 1
+}
+
 resource "azurerm_mssql_virtual_network_rule" "dbNet" {
   name = "${var.product-name}-sql-vnet"
   server_id = azurerm_mssql_server.sqlServer.id
