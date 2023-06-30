@@ -4,13 +4,6 @@ terraform {
             source = "hashicorp/azurerm"
         }
     }
-    # backend "azurerm" {
-    #   resource_group_name = "networkeco-poc"
-    #   storage_account_name = "cobiterra"
-    #   container_name = "network"
-    #   key = "terraform.tfstate"
-    #   features{}
-    # }
 }
 
 
@@ -37,13 +30,14 @@ data "azurerm_resource_group" "resource_group" {
 
 
 resource "azurerm_storage_account" "storageAccont" {
-  name = "${var.product-name}datalake2terra"
+  name = "${var.product-name}datalake2"
   resource_group_name = data.azurerm_resource_group.resource_group.name
   location = data.azurerm_resource_group.resource_group.location
   account_tier = "Standard"
   account_replication_type = "LRS"
   is_hns_enabled = true
   access_tier = "Hot"
+  min_tls_version = "TLS1_2"
 }
 
 resource "azurerm_storage_account_network_rules" "adlNet" {
@@ -65,6 +59,7 @@ resource "azurerm_storage_account" "functionStorage" {
   account_tier = "Standard"
   account_replication_type = "LRS"
   access_tier = "Hot"
+  min_tls_version = "TLS1_2"
 }
 
 resource "azurerm_storage_account_network_rules" "functionNet" {
