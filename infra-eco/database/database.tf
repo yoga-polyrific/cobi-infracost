@@ -34,6 +34,7 @@ resource "azurerm_mssql_server" "sqlServer" {
   administrator_login = "cobieco-terra"
   administrator_login_password = "A#0W4Bb0MWl1cC9L"
   version = "12.0"
+  public_network_access_enabled = false
 }
 
 resource "azurerm_mssql_virtual_network_rule" "dbNet" {
