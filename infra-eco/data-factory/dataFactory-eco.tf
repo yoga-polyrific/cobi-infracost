@@ -43,6 +43,7 @@ resource "azurerm_data_factory" "dataFactory" {
   name = "${var.product-name}datafactory"
   location = data.azurerm_resource_group.resource_group.location
   resource_group_name = data.azurerm_resource_group.resource_group.name
+  public_network_enabled = false
 }
 
 resource "azurerm_data_factory_linked_service_sql_server" "serviceSql" {
