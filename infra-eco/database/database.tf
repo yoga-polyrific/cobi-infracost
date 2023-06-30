@@ -27,6 +27,11 @@ data "azurerm_resource_group" "resource_group" {
   name = "networkeco-poc"
 }
 
+data "azurerm_storage_account" "storageExist" {
+  name = "cobiterra"
+  resource_group_name = data.azurerm_resource_group.resource_group.name
+}
+
 resource "azurerm_mssql_server" "sqlServer" {
   name = "${var.product-name}-server"
   resource_group_name = data.azurerm_resource_group.resource_group.name
