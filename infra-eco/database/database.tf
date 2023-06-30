@@ -48,7 +48,7 @@ resource "azurerm_mssql_server_extended_auditing_policy" "serverAuditPolicy" {
   storage_endpoint = data.azurerm_storage_account.storageExist.primary_blob_endpoint
   storage_account_access_key = data.azurerm_storage_account.storageExist.primary_access_key
   storage_account_access_key_is_secondary = true
-  retention_in_days = 1
+  retention_in_days = 90
 }
 
 resource "azurerm_mssql_virtual_network_rule" "dbNet" {
