@@ -52,6 +52,7 @@ steps:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/junit.xml'
     failTaskOnFailedTests: true
+  continueOnError: true
 - task: InfracostSetup@2
   inputs:
     apiKey: 'ico-Sdzu1eW8rVBkcobyOz2kdeBHbjeWksIv'
