@@ -36,6 +36,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'show'
+    environmentServiceNameAzureRM: 'Polyrific Dev (2761de67-2963-4317-8aa4-1c7be53bd3e5)'
     workingDirectory: '$(System.DefaultWorkingDirectory)/infra-eco'
     commandOptions: '-json tfplan'
     outputTo: 'file'
