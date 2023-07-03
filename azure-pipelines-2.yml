@@ -13,6 +13,7 @@ steps:
   inputs:
     terraformVersion: '1.5.0'
 - task: TerraformTaskV4@4
+  displayName: 'Terraform Init'
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -23,6 +24,7 @@ steps:
     backendAzureRmContainerName: 'tfstate'
     backendAzureRmKey: 'terraform.tfstate'
 - task: TerraformTaskV4@4
+  displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -30,6 +32,7 @@ steps:
     commandOptions: '-out tfplan'
     environmentServiceNameAzureRM: 'Polyrific Dev (2761de67-2963-4317-8aa4-1c7be53bd3e5)'
 - task: TerraformTaskV4@4
+  displayName: 'Terraform show'
   inputs:
     provider: 'azurerm'
     command: 'show'
