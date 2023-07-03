@@ -1,0 +1,69 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: '1.5.0'
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/infra-eco'
+    backendServiceArm: 'Polyrific Dev (2761de67-2963-4317-8aa4-1c7be53bd3e5)'
+    backendAzureRmResourceGroupName: 'networkeco-poc'
+    backendAzureRmStorageAccountName: 'cobiterra'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'terraform.tfstate'
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/infra-eco'
+    commandOptions: '-out tfplan'
+    environmentServiceNameAzureRM: 'Polyrific Dev (2761de67-2963-4317-8aa4-1c7be53bd3e5)'
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'azurerm'
+    command: 'show'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/infra-eco'
+    commandOptions: '-json tfplan'
+    outputTo: 'file'
+    outputFormat: 'default'
+    fileName: 'tfplan.json'
+- script: |
+      wget -q -O tfsec https://github.com/aquasecurity/tfsec/releases/download/v1.28.1/tfsec-linux-amd64 \
+      && chmod +x ./tfsec
+      ./tfsec . --soft-fail --format junit >> junit.xml
+  displayName: 'TFSec'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit.xml'
+    failTaskOnFailedTests: true
+- task: InfracostSetup@2
+  inputs:
+    apiKey: 'ico-Sdzu1eW8rVBkcobyOz2kdeBHbjeWksIv'
+    version: '0.10.x'
+- script: infracost breakdown --path=tfplan --format=html --out-file=infracost.html --show-skipped
+  displayName: 'Infracost breakdown'
+- task: PublishHtmlReport@1
+  inputs:
+    reportDir: 'infracost.html'
+  displayName: 'Publish Infracost'
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
