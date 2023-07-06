@@ -3,7 +3,7 @@ Feature: Terraform Compliance Test
   Background:
     Given the required Terraform providers are defined
 
-  Scenario: Ensure Terraform configuration is compliant
+  Scenario Outline: Ensure Terraform configuration is compliant
     Given the Azure provider is configured with skip_provider_registration set to true
     And the product name variable is set to "ecopetrol"
     And the functionSubnetId variable is defined
