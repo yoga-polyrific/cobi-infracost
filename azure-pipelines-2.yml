@@ -57,7 +57,7 @@ steps:
   inputs:
     apiKey: 'ico-Sdzu1eW8rVBkcobyOz2kdeBHbjeWksIv'
     version: '0.10.x'
-- script: infracost breakdown --path=tfplan --format=html --out-file=infracost.html --show-skipped
+- script: infracost breakdown --path=tfplan.json --format=html --out-file=infracost.html --show-skipped
   displayName: 'Infracost breakdown'
 - task: PublishHtmlReport@1
   inputs:
