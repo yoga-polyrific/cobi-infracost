@@ -1,41 +1,35 @@
-Feature: Azure Resource Creation
+Feature: Terraform Compliance Test
 
-  Scenario Outline: Verify the creation of Azure Data Factory
-    Given I have an Azure Data Factory named "ecopetroldatafactory" in the resource group "networkeco-poc"
-    Then the Azure Data Factory should exist
+  Background:
+    Given the required Terraform providers are defined
 
-  Scenario Outline: Verify the creation of Azure SQL Database and Server
-    Given I have an Azure SQL Database named "ecopetrol-db-terra" and an Azure SQL Server named "ecopetrol-server" in the resource group "networkeco-poc"
-    Then the Azure SQL Database and Server should exist
+  Scenario: Ensure Terraform configuration is compliant
+    Given the Azure provider is configured with skip_provider_registration set to true
+    And the product name variable is set to "ecopetrol"
+    And the functionSubnetId variable is defined
+    And the insightKey variable is defined
+    And the insightConnString variable is defined
+    And the functionStorageName variable is defined
+    And the functionStorageKey variable is defined
+    And the azurerm_resource_group data source is defined with name "otherresources-eco-poc"
+    And the azurerm_service_plan resource is defined with name "ecoapp-plan" and sku_name "B1"
+    And the azurerm_linux_function_app resource is defined with name "functioneco-terra" and application_stack dotnet_version "6.0"
+    And the azurerm_app_service_virtual_network_swift_connection resource is defined with app_service_id and subnet_id
 
-  Scenario Outline: Verify the creation of Azure Function App
-    Given I have an Azure Function App named "functioneco-terra" in the resource group "networkeco-poc"
-    Then the Azure Function App should exist
+    When Terraform applies the configuration
 
-  Scenario Outline: Verify the creation of Application Insights
-    Given I have an Application Insights instance named "ecopetrolInsight-function" in the resource group "networkeco-poc"
-    Then the Application Insights instance should exist
+    Then the azurerm_service_plan resource with name "ecoapp-plan" should exist
+    And the azurerm_linux_function_app resource with name "functioneco-terra" should exist
+    And the azurerm_app_service_virtual_network_swift_connection resource should exist
 
-  Scenario Outline: Verify the creation of Azure Key Vault
-    Given I have an Azure Key Vault named "ecopetrolkeyvaultterra" in the resource group "networkeco-poc"
-    Then the Azure Key Vault should exist
+    And the azurerm_linux_function_app resource should have the correct configuration:
+      | storage_account_name                  | ${var.functionStorageName}        |
+      | storage_account_access_key            | ${var.functionStorageKey}         |
+      | service_plan_id                       | azurerm_service_plan.ecoappPlan.id |
+      | site_config.application_stack.dotnet_version | 6.0                        |
+      | site_config.application_insights_key  | ${var.insightKey}                 |
+      | site_config.application_insights_connection_string | ${var.insightConnString} |
 
-  Scenario Outline: Verify the creation of Network Watcher
-    Given I have a Network Watcher named "ecopetrol-netwatch-terra" in the resource group "networkeco-poc"
-    Then the Network Watcher should exist
-
-  Scenario Outline: Verify the creation of Network Security Group
-    Given I have a Network Security Group named "ecopetrolNsg-terra" in the resource group "networkeco-poc"
-    Then the Network Security Group should exist
-
-  Scenario Outline: Verify the creation of Storage Account
-    Given I have a Storage Account named "ecopetroldatalake2" in the resource group "networkeco-poc"
-    Then the Storage Account should exist
-
-  Scenario Outline: Verify the creation of Azure Synapse
-    Given I have an Azure Synapse instance named "ecopetrolsynapse-terra" in the resource group "networkeco-poc"
-    Then the Azure Synapse instance should exist
-
-  Scenario Outline: Verify the creation of Azure Virtual Network
-    Given I have an Azure Virtual Network named "ecopetrol-network-terraform" in the resource group "networkeco-poc"
-    Then the Azure Virtual Network should exist
+    And the azurerm_app_service_virtual_network_swift_connection resource should have the correct configuration:
+      | app_service_id                     | azurerm_linux_function_app.functionEco.id |
+      | subnet_id                          | ${var.functionSubnetId}
