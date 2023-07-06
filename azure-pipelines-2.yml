@@ -63,6 +63,8 @@ steps:
   inputs:
     reportDir: 'infracost.html'
   displayName: 'Publish Infracost'
+- script: cat infracost.html
+  displayName: 'Show html'
 - task: CopyFiles@2
   inputs:
     Contents: '**'
