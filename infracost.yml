@@ -1,0 +1,6 @@
+version: 0.1
+
+dashboard:
+  api_key: ico-Sdzu1eW8rVBkcobyOz2kdeBHbjeWksIv
+  project_id: ecoterra-cobi
+  root_module_name: main.tf
