@@ -1,0 +1,128 @@
+# You can use this file to define resource usage estimates for Infracost to use when calculating
+# the cost of usage-based resource, such as AWS S3 or Lambda.
+# `infracost breakdown --usage-file infracost-usage.yml [other flags]`
+# See https://infracost.io/usage-file/ for docs
+version: 0.1
+# resource_type_default_usage:
+  ##
+  ## The following usage values apply to each resource of the given type, which is useful when you want to define defaults.
+  ## All values are commented-out, you can uncomment resource types and customize as needed.
+  ##
+  # azurerm_application_insights:
+    # monthly_data_ingested_gb: 0.0 # Monthly amount of data ingested in GB.
+  # azurerm_data_factory:
+    # monthly_read_write_operation_entities: 0 # Monthly entities for Read/Write operations.
+    # monthly_monitoring_operation_entities: 0 # Monthly entities for Monitoring operations.
+  # azurerm_firewall:
+    # monthly_data_processed_gb: 0 # Monthly data processed by the firewall in GB.
+  # azurerm_linux_function_app:
+    # monthly_executions: 0
+    # execution_duration_ms: 0
+    # memory_mb: 0
+    # instances: 0
+  # azurerm_mssql_database:
+    # monthly_vcore_hours: 0 # Monthly number of used vCore-hours for serverless compute.
+    # long_term_retention_storage_gb: 0 # Number of GBs used by long-term retention backup storage.
+    # backup_storage_gb: 0 # Number of GBs used by Point-In-Time Restore (PITR) backup storage.
+    # extra_data_storage_gb: 0.0 # Override number of GBs used by extra data storage.
+  # azurerm_storage_account:
+    # data_at_rest_storage_gb: 0.0 # Total size of Data at Rest in GB (File storage).
+    # early_deletion_gb: 0.0 # Total size of Early deletion data in GB.
+    # snapshots_storage_gb: 0.0 # Total size of Snapshots in GB (File storage).
+    # metadata_at_rest_storage_gb: 0.0 # Total size of Metadata in GB (File storage).
+    # storage_gb: 0.0 # Total size of storage in GB.
+    # monthly_iterative_write_operations: 0 # Monthly number of Iterative write operations (GPv2).
+    # monthly_write_operations: 0 # Monthly number of Write operations.
+    # monthly_list_and_create_container_operations: 0 # Monthly number of List and Create Container operations.
+    # monthly_iterative_read_operations: 0 # Monthly number of Iterative read operations (GPv2).
+    # monthly_read_operations: 0 # Monthly number of Read operations.
+    # monthly_other_operations: 0 # Monthly number of All other operations.
+    # monthly_data_retrieval_gb: 0.0 # Monthly number of data retrieval in GB.
+    # monthly_data_write_gb: 0.0 # Monthly number of data write in GB.
+    # blob_index_tags: 0 # Total number of Blob indexes.
+  # azurerm_synapse_workspace:
+    # serverless_sql_pool_size_tb: 0 # Total storage size, including snapshots, in TB.
+    # monthly_datapipeline_azure_hosted_activity_runs: 0 # Monthly number of Azure hosted activity runs.
+    # monthly_datapipeline_azure_hosted_data_integration_units: 0 # Monthly number of Azure hosted data integration units.
+    # monthly_datapipeline_azure_hosted_data_integration_hours: 0 # Monthly number of Azure hosted data integration hours.
+    # monthly_datapipeline_azure_hosted_integration_runtime_hours: 0 # Monthly number of Azure hosted integration runtime hours.
+    # monthly_datapipeline_azure_hosted_external_integration_runtime_hours: 0 # Monthly number of Azure hosted external integration runtime hours.
+    # monthly_datapipeline_self_hosted_activity_runs: 0 # Monthly number of self hosted activity runs.
+    # monthly_datapipeline_self_hosted_data_movement_hours: 0 # Monthly number of self hosted data movement hours.
+    # monthly_datapipeline_self_hosted_integration_runtime_hours: 0 # Monthly number of self hosted integration runtime hours.
+    # monthly_datapipeline_self_hosted_external_integration_runtime_hours: 0 # Monthly number of self hosted external integration runtime hours.
+    # dataflow_basic_instances: 0 # Number of Data Flow basic instances.
+    # dataflow_basic_vcores: 0 # Number of Data Flow basic vCores.
+    # monthly_dataflow_basic_hours: 0 # Monthly number of Data Flow basic hours (this is multiplied by the number of instances and vCores).
+    # dataflow_standard_instances: 0 # Number of Data Flow standard instances.
+    # dataflow_standard_vcores: 0 # Number of Data Flow standard vCores.
+    # monthly_dataflow_standard_hours: 0 # Monthly number of Data Flow standard hours (this is multiplied by the number of instances and vCores).
+# resource_usage:
+  ##
+  ## The following usage values apply to individual resources and override any value defined in the resource_type_default_usage section.
+  ## All values are commented-out, you can uncomment resources and customize as needed.
+  ##
+  # module.databases.azurerm_mssql_database.sqlDatabase:
+    # monthly_vcore_hours: 0 # Monthly number of used vCore-hours for serverless compute.
+    # long_term_retention_storage_gb: 0 # Number of GBs used by long-term retention backup storage.
+    # backup_storage_gb: 0 # Number of GBs used by Point-In-Time Restore (PITR) backup storage.
+    # extra_data_storage_gb: 0.0 # Override number of GBs used by extra data storage.
+  # module.datafactory.azurerm_data_factory.dataFactory:
+    # monthly_read_write_operation_entities: 0 # Monthly entities for Read/Write operations.
+    # monthly_monitoring_operation_entities: 0 # Monthly entities for Monitoring operations.
+  # module.function.azurerm_linux_function_app.functionEco:
+    # monthly_executions: 0
+    # execution_duration_ms: 0
+    # memory_mb: 0
+    # instances: 0
+  # module.insight.azurerm_application_insights.insightFunction:
+    # monthly_data_ingested_gb: 0.0 # Monthly amount of data ingested in GB.
+  # module.network.azurerm_firewall.firewall:
+    # monthly_data_processed_gb: 0 # Monthly data processed by the firewall in GB.
+  # module.storage.azurerm_storage_account.functionStorage:
+    # data_at_rest_storage_gb: 0.0 # Total size of Data at Rest in GB (File storage).
+    # early_deletion_gb: 0.0 # Total size of Early deletion data in GB.
+    # snapshots_storage_gb: 0.0 # Total size of Snapshots in GB (File storage).
+    # metadata_at_rest_storage_gb: 0.0 # Total size of Metadata in GB (File storage).
+    # storage_gb: 0.0 # Total size of storage in GB.
+    # monthly_iterative_write_operations: 0 # Monthly number of Iterative write operations (GPv2).
+    # monthly_write_operations: 0 # Monthly number of Write operations.
+    # monthly_list_and_create_container_operations: 0 # Monthly number of List and Create Container operations.
+    # monthly_iterative_read_operations: 0 # Monthly number of Iterative read operations (GPv2).
+    # monthly_read_operations: 0 # Monthly number of Read operations.
+    # monthly_other_operations: 0 # Monthly number of All other operations.
+    # monthly_data_retrieval_gb: 0.0 # Monthly number of data retrieval in GB.
+    # monthly_data_write_gb: 0.0 # Monthly number of data write in GB.
+    # blob_index_tags: 0 # Total number of Blob indexes.
+  # module.storage.azurerm_storage_account.storageAccont:
+    # data_at_rest_storage_gb: 0.0 # Total size of Data at Rest in GB (File storage).
+    # early_deletion_gb: 0.0 # Total size of Early deletion data in GB.
+    # snapshots_storage_gb: 0.0 # Total size of Snapshots in GB (File storage).
+    # metadata_at_rest_storage_gb: 0.0 # Total size of Metadata in GB (File storage).
+    # storage_gb: 0.0 # Total size of storage in GB.
+    # monthly_iterative_write_operations: 0 # Monthly number of Iterative write operations (GPv2).
+    # monthly_write_operations: 0 # Monthly number of Write operations.
+    # monthly_list_and_create_container_operations: 0 # Monthly number of List and Create Container operations.
+    # monthly_iterative_read_operations: 0 # Monthly number of Iterative read operations (GPv2).
+    # monthly_read_operations: 0 # Monthly number of Read operations.
+    # monthly_other_operations: 0 # Monthly number of All other operations.
+    # monthly_data_retrieval_gb: 0.0 # Monthly number of data retrieval in GB.
+    # monthly_data_write_gb: 0.0 # Monthly number of data write in GB.
+    # blob_index_tags: 0 # Total number of Blob indexes.
+  # module.synapse.azurerm_synapse_workspace.synapseWorkspace:
+    # serverless_sql_pool_size_tb: 0 # Total storage size, including snapshots, in TB.
+    # monthly_datapipeline_azure_hosted_activity_runs: 0 # Monthly number of Azure hosted activity runs.
+    # monthly_datapipeline_azure_hosted_data_integration_units: 0 # Monthly number of Azure hosted data integration units.
+    # monthly_datapipeline_azure_hosted_data_integration_hours: 0 # Monthly number of Azure hosted data integration hours.
+    # monthly_datapipeline_azure_hosted_integration_runtime_hours: 0 # Monthly number of Azure hosted integration runtime hours.
+    # monthly_datapipeline_azure_hosted_external_integration_runtime_hours: 0 # Monthly number of Azure hosted external integration runtime hours.
+    # monthly_datapipeline_self_hosted_activity_runs: 0 # Monthly number of self hosted activity runs.
+    # monthly_datapipeline_self_hosted_data_movement_hours: 0 # Monthly number of self hosted data movement hours.
+    # monthly_datapipeline_self_hosted_integration_runtime_hours: 0 # Monthly number of self hosted integration runtime hours.
+    # monthly_datapipeline_self_hosted_external_integration_runtime_hours: 0 # Monthly number of self hosted external integration runtime hours.
+    # dataflow_basic_instances: 0 # Number of Data Flow basic instances.
+    # dataflow_basic_vcores: 0 # Number of Data Flow basic vCores.
+    # monthly_dataflow_basic_hours: 0 # Monthly number of Data Flow basic hours (this is multiplied by the number of instances and vCores).
+    # dataflow_standard_instances: 0 # Number of Data Flow standard instances.
+    # dataflow_standard_vcores: 0 # Number of Data Flow standard vCores.
+    # monthly_dataflow_standard_hours: 0 # Monthly number of Data Flow standard hours (this is multiplied by the number of instances and vCores).
