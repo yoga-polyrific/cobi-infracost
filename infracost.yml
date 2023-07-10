@@ -1,3 +1,4 @@
+version: 0.1
 projects:
   - path: infra-eco/
     usage_file: infracost-usage.yml
